@@ -5,7 +5,9 @@ import ssl
 import pandas as pd
 import base64
 import streamlit.components.v1 as components
+from streamlit_option_menu import option_menu
 
+#navigation using option_
 
 # Define the send_email function
 def send_email(recipient_name, recipient_email, subject, body_template, password):
@@ -18,8 +20,11 @@ def send_email(recipient_name, recipient_email, subject, body_template, password
     context = ssl.create_default_context()
 
     # Gmail SMTP settings
+    # email_ad = "aaron.santos.mentor@gmail.com"
+    # email_password = "lhfspaztcqrewjuh"
+
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    server.login("aaron.santos.mentor@gmail.com", password)
+    server.login(email_ad, password)
     server.send_message(msg)
     server.quit()
 
@@ -29,7 +34,7 @@ def get_image_base64(image):
         return base64.b64encode(img_file.read()).decode()
 
 # Function to add selected block to the email template
-def add_block_to_template(block_type, content, template):
+def add_block_to_template(block_type, content, template, label):
     if block_type == 'image':
         encoded_image = get_image_base64(content)
         img_tag = f'<img src="data:image/jpeg;base64,{encoded_image}" width="200"/>'
@@ -38,7 +43,7 @@ def add_block_to_template(block_type, content, template):
         quote_tag = f'<blockquote>{content}</blockquote>'
         template += quote_tag + '<br>'
     elif block_type == 'link':
-        link_tag = f'<a href="{content}">{content}</a>'
+        link_tag = f'<a href="{content}">{label}</a>'
         template += link_tag + '<br>'
     return template
 
@@ -51,11 +56,13 @@ def display_email_template(email_elements):
         elif element['type'] == 'quote':
             email_template_html += f'<blockquote>{element["content"]}</blockquote><br>'
         elif element['type'] == 'link':
-            email_template_html += f'<a href="{element["content"]}">{element["content"]}</a><br>'
+            email_template_html += f'<a href="{element["content"]}">{element["Label"]}</a><br>'
     return email_template_html
 
 # Streamlit UI components
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",
+
+                   )
 st.title("BurstSend")
 
 # Create two columns for the layout
@@ -74,7 +81,8 @@ with col1:
     if st.button('Preview Email'):
         # Using an expander to simulate a modal dialog
         with st.expander("Email Preview", expanded=True):
-            components.html(st.session_state.body_template, height=1200)
+            components.html(st.session_state.body_template, height=3200)
+    email_ad = st.text_input("Email Address", type="default")        
     password = st.text_input("Email Password", type="password")
 
     # When the 'Send Email' button is clicked, send the email
@@ -166,7 +174,7 @@ with preview_area:
     # If the body_template is not empty, render it
     if st.session_state.body_template:
         # Directly render HTML with components.html
-        components.html(st.session_state.body_template, height=1200)
+        components.html(st.session_state.body_template, height=3200)
 
     # Render the email template as HTML
     for element in st.session_state.email_elements:
