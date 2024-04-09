@@ -63,7 +63,7 @@ def display_email_template(email_elements):
 st.set_page_config(layout="wide",
 
                    )
-st.title("BurstSend")
+st.title("DesaBoom!!")
 
 # Create two columns for the layout
 col1, col2 = st.columns(2)

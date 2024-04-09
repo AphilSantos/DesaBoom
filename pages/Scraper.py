@@ -48,5 +48,13 @@ protected_filename = 'protected_page.html'
 with open(protected_filename, 'w', encoding='utf-8') as file:
     file.write(protected_page_response.text)
 
+import streamlit as st
+import smtplib
+import streamlit.components.v1 as components
+from streamlit_option_menu import option_menu
 
+st.set_page_config(layout="wide",
+
+                   )
+st.title("Scraper App")
 
