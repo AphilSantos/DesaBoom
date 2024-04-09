@@ -34,7 +34,7 @@ import os
 st.markdown("## Website View")
 # Define the iframe HTML code with your URL
 iframe_code = """
-<iframe src="https://mediumslateblue-gnat-563477.hostingersite.com/" width="100%" height="600" frameborder="0"></iframe>
+<iframe src="https://mediumslateblue-gnat-563477.hostingersite.com/" width="1500px" height="100%" frameborder="0"></iframe>
 """
 
 # Use the st.markdown method to render the iframe in your Streamlit app
