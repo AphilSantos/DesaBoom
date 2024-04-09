@@ -31,9 +31,11 @@ if not df_comments.empty:
     for index, row in df_comments.iterrows():
         st.sidebar.text(f"Location: {row['Location']}\nComment: {row['Comment']}\n---")
 
-# Main area for the website view
 st.markdown("## Website View")
-iframe = "https://mediumslateblue-gnat-563477.hostingersite.com/"
+# Define the iframe HTML code with your URL
+iframe_code = """
+<iframe src="https://mediumslateblue-gnat-563477.hostingersite.com/" width="100%" height="600" frameborder="0"></iframe>
+"""
 
 # Use the st.markdown method to render the iframe in your Streamlit app
-st.markdown(iframe, unsafe_allow_html=True)
+st.markdown(iframe_code, unsafe_allow_html=True)
