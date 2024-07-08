@@ -19,9 +19,6 @@ def send_email(recipient_name, recipient_email, subject, body_template, password
 
     context = ssl.create_default_context()
 
-    # Gmail SMTP settings
-    # email_ad = "aaron.santos.mentor@gmail.com"
-    # email_password = "lhfspaztcqrewjuh"
 
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.login(email_ad, password)
